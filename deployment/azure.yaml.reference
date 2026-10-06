@@ -1,0 +1,43 @@
+# Reference azure.yaml for Module 7 (for comparison only - do not copy blindly).
+#
+# This is the file `azd ai agent init` generated in the validation run (5 October 2026, azd 1.34.1,
+# azure.ai.agents 1.0.0-beta.16), plus the three `env` entries marked "ADDED" in Module 7.3:
+#   azd ai agent init --src ./app --agent-name issue-triage-hosted --deploy-mode container \
+#     --project-id "<project-resource-id>" --model-deployment "<model-deployment-name>" --protocol responses -e triage-lab
+#
+# Field names follow "azure.yaml reference for hosted agents" (Microsoft Learn):
+# https://learn.microsoft.com/azure/foundry/agents/concepts/azure-yaml-reference
+# Newer extension versions may generate extra fields. Keep what azd generates.
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: practical-hands-on
+services:
+    ai-project:
+        host: azure.ai.project
+        endpoint: ${FOUNDRY_PROJECT_ENDPOINT}          # existing project; azd doesn't create a new one
+    issue-triage-hosted:
+        project: ./app                                  # folder with the Dockerfile and main.py
+        host: azure.ai.agent
+        language: docker
+        docker:
+            remoteBuild: true                           # image is built in Azure Container Registry
+        uses:
+            - ai-project
+        env:
+            # Don't declare FOUNDRY_* variables: the platform injects FOUNDRY_PROJECT_ENDPOINT and others.
+            AZURE_AI_MODEL_DEPLOYMENT_NAME: ${AZURE_AI_MODEL_DEPLOYMENT_NAME}
+            AZURE_SEARCH_ENDPOINT: ${AZURE_SEARCH_ENDPOINT}                       # ADDED (Module 5)
+            AZURE_SEARCH_KNOWLEDGE_BASE_NAME: ${AZURE_SEARCH_KNOWLEDGE_BASE_NAME} # ADDED (Module 5)
+            LOG_LEVEL: INFO                                                       # ADDED
+        container:
+            resources:
+                cpu: "0.5"                              # smallest documented sizes keep cost down
+                memory: 1Gi
+        kind: hosted
+        name: issue-triage-hosted                       # different name from the portal Prompt Agent
+        protocols:
+            - protocol: responses
+              version: 2.0.0
+        startupCommand: python main.py
+infra:
+    provider: microsoft.foundry

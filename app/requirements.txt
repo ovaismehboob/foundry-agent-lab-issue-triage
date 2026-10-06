@@ -1,0 +1,14 @@
+# Runtime dependencies for the triage app (local runs, the container image, and the hosted agent).
+# Versions are pinned so every student and instructor gets the same, tested behaviour.
+# Two Agent Framework packages are prerelease (b = beta) at the time of writing; see docs/prerequisites.md.
+agent-framework-core==1.19.0
+agent-framework-foundry==1.13.1
+agent-framework-foundry-hosting==1.0.0b260918
+agent-framework-azure-ai-search==1.0.0b260910
+azure-ai-agentserver-responses==2.2.0
+azure-ai-projects==2.6.1
+# Preview build: required for knowledge sources of kind "file" (portal File upload) and supports azureBlob too.
+azure-search-documents==12.1.0b2
+azure-identity==1.26.0
+pydantic==2.13.5
+python-dotenv==1.2.3

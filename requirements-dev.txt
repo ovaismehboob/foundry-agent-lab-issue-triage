@@ -1,0 +1,3 @@
+# Local development: app runtime dependencies plus the test runner.
+-r app/requirements.txt
+pytest==8.4.2

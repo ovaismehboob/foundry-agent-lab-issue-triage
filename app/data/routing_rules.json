@@ -1,0 +1,21 @@
+{
+  "_comment": "Synthetic routing policy. Team and SLA always come from this table, never from the model.",
+  "teams_by_category": {
+    "NETWORK": "Network Operations",
+    "DEVICE_SIM": "Device & SIM Support",
+    "BILLING": "Billing Operations",
+    "ROAMING": "Roaming Desk",
+    "ACCOUNT_PLAN": "Account Services",
+    "SERVICE_COMPLAINT": "Customer Relations",
+    "UNCLASSIFIED": "Frontline Support"
+  },
+  "overrides": [
+    {"category": "NETWORK", "priority": "P1", "team": "Network Operations Centre (Major Incident Desk)"}
+  ],
+  "first_response_sla_hours": {
+    "P1": 1,
+    "P2": 4,
+    "P3": 24,
+    "P4": 72
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "_comment": "Synthetic lab data for the fictional operator Contoso Telecom. Category IDs must match triage_desk/models.py.",
+  "categories": [
+    {
+      "id": "NETWORK",
+      "name": "Network & Connectivity",
+      "description": "Loss or degradation of mobile data, voice calls, SMS, home internet, or coverage in an area.",
+      "keywords": ["no signal", "no service", "no network", "no data", "mobile data", "internet", "coverage", "calls dropping", "call drop", "slow", "buffering", "outage", "cannot make", "can't make", "receive calls"]
+    },
+    {
+      "id": "DEVICE_SIM",
+      "name": "Device, SIM & Services",
+      "description": "Handsets, SIM and eSIM activation, voicemail and call-feature configuration, device warranty.",
+      "keywords": ["esim", "sim", "qr code", "voicemail", "handset", "won't charge", "warranty", "device", "call forwarding"]
+    },
+    {
+      "id": "BILLING",
+      "name": "Billing & Payments",
+      "description": "Charges, refunds, recharges, invoices, payments and payment-related suspensions.",
+      "keywords": ["bill", "charged", "charge", "refund", "recharge", "invoice", "payment", "paid", "aed", "overcharged"]
+    },
+    {
+      "id": "ROAMING",
+      "name": "Roaming",
+      "description": "Service problems or questions while the customer is outside the home network country.",
+      "keywords": ["roaming", "abroad", "travel", "overseas", "trip"]
+    },
+    {
+      "id": "ACCOUNT_PLAN",
+      "name": "Account & Plan Changes",
+      "description": "Plan upgrades and downgrades, bundle changes, ownership transfer and account details.",
+      "keywords": ["change plan", "upgrade", "downgrade", "bundle", "transfer ownership", "ownership", "change from", "switch plan"]
+    },
+    {
+      "id": "SERVICE_COMPLAINT",
+      "name": "Service Complaint",
+      "description": "Complaints about staff conduct, store or support experience, or repeated unresolved issues.",
+      "keywords": ["rude", "complaint", "disappointed", "unresolved", "third time", "worst", "useless", "staff"]
+    },
+    {
+      "id": "UNCLASSIFIED",
+      "name": "Unclassified / Needs Information",
+      "description": "The message is too vague to categorise, or it is outside the scope of telecom support.",
+      "keywords": []
+    }
+  ],
+  "priorities": [
+    {"id": "P1", "name": "Critical", "definition": "Complete loss of service for a business customer or for multiple lines, or impact on emergency calling."},
+    {"id": "P2", "name": "High", "definition": "Complete loss of a key service for a single consumer, service suspended, or a third repeat complaint."},
+    {"id": "P3", "name": "Medium", "definition": "Partial degradation, billing disputes, device faults, or an issue with a known workaround."},
+    {"id": "P4", "name": "Low", "definition": "Information requests, plan changes, feedback, or out-of-scope messages."}
+  ]
+}

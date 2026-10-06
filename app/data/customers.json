@@ -1,0 +1,17 @@
+{
+  "_comment": "Synthetic customer profiles for the fictional operator Contoso Telecom. No real people or accounts.",
+  "customers": [
+    {"customer_id": "CUST-1001", "preferred_name": "Sam", "segment": "consumer", "plan": "Prepaid Smart 50", "home_area": "Harbour District", "lines": 1, "open_tickets": 0, "complaints_last_90_days": 0, "account_status": "active"},
+    {"customer_id": "CUST-1002", "preferred_name": "Northwind Logistics", "segment": "business", "plan": "Business Voice 40", "home_area": "Central Business District", "lines": 40, "open_tickets": 1, "complaints_last_90_days": 0, "account_status": "active"},
+    {"customer_id": "CUST-1003", "preferred_name": "Lina", "segment": "consumer", "plan": "Prepaid Smart 100", "home_area": "North Hills", "lines": 1, "open_tickets": 0, "complaints_last_90_days": 0, "account_status": "active"},
+    {"customer_id": "CUST-1004", "preferred_name": "Omar", "segment": "consumer", "plan": "Postpaid Flex 150", "home_area": "Riverside", "lines": 1, "open_tickets": 0, "complaints_last_90_days": 0, "account_status": "active"},
+    {"customer_id": "CUST-1005", "preferred_name": "Priya", "segment": "consumer", "plan": "Postpaid Flex 150", "home_area": "Harbour District", "lines": 1, "open_tickets": 0, "complaints_last_90_days": 0, "account_status": "active"},
+    {"customer_id": "CUST-1006", "preferred_name": "Daniel", "segment": "consumer", "plan": "Prepaid Smart 50", "home_area": "Old Town", "lines": 1, "open_tickets": 0, "complaints_last_90_days": 0, "account_status": "active"},
+    {"customer_id": "CUST-1007", "preferred_name": "Mariam", "segment": "consumer", "plan": "Postpaid Flex 250", "home_area": "Riverside", "lines": 2, "open_tickets": 2, "complaints_last_90_days": 2, "account_status": "active"},
+    {"customer_id": "CUST-1008", "preferred_name": "Chen", "segment": "consumer", "plan": "Home Fiber 500", "home_area": "North Hills", "lines": 1, "open_tickets": 0, "complaints_last_90_days": 0, "account_status": "active"},
+    {"customer_id": "CUST-1009", "preferred_name": "Fatima", "segment": "consumer", "plan": "Prepaid Smart 100", "home_area": "Al Noor Gardens", "lines": 1, "open_tickets": 0, "complaints_last_90_days": 0, "account_status": "active"},
+    {"customer_id": "CUST-1010", "preferred_name": "Tariq", "segment": "consumer", "plan": "Postpaid Flex 150", "home_area": "Old Town", "lines": 1, "open_tickets": 0, "complaints_last_90_days": 0, "account_status": "suspended"},
+    {"customer_id": "CUST-1011", "preferred_name": "Fabrikam Events", "segment": "business", "plan": "Business Mobile 12", "home_area": "Central Business District", "lines": 12, "open_tickets": 0, "complaints_last_90_days": 0, "account_status": "active"},
+    {"customer_id": "CUST-1012", "preferred_name": "Grace", "segment": "consumer", "plan": "Prepaid Smart 50", "home_area": "Harbour District", "lines": 1, "open_tickets": 0, "complaints_last_90_days": 1, "account_status": "active"}
+  ]
+}
