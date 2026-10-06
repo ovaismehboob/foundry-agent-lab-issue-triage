@@ -31,6 +31,9 @@ Start with the [student guide](docs/student-guide.md). Instructors: read the [in
 ## Quick start (Module 2, no Azure needed)
 
 ```powershell
+git clone https://github.com/ovaismehboob/foundry-agent-lab-issue-triage.git
+cd foundry-agent-lab-issue-triage
+code .
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements-dev.txt

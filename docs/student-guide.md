@@ -30,6 +30,16 @@ All data is synthetic. Contoso Telecom, its customers, areas, and incidents are 
 
 Before you start, complete [prerequisites.md](prerequisites.md). If something goes wrong, see [troubleshooting.md](troubleshooting.md). At the end, follow [cost-and-cleanup.md](cost-and-cleanup.md).
 
+## Get the lab files
+
+```powershell
+git clone https://github.com/ovaismehboob/foundry-agent-lab-issue-triage.git
+cd foundry-agent-lab-issue-triage
+code .
+```
+
+The repository starts in the **starter state**. Check it with `python scripts/lab_state.py status` after the Module 2 setup; every LAB STEP shows "commented out". Each student uses their own Azure resources (or the project the instructor gives them) and their own `app/.env`, which Git ignores.
+
 ## How the coding exercises work
 
 You don't type long code listings. The code is already in the repository, commented out, between markers like this:
