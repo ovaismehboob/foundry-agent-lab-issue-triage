@@ -153,16 +153,26 @@ Check `"status": "active"`, the `container_configuration.image`, the `environmen
 }
 ```
 
+**Get the agent identity's principal ID (needed for step 7.7).** The principal ID is the `instance_identity.principal_id` value in the JSON above. Rather than copy it by hand, capture it into a variable by parsing the JSON output:
+
+```powershell
+$agentJson = azd ai agent show issue-triage-hosted -e triage-lab --output json | ConvertFrom-Json
+$agentPrincipalId = $agentJson.instance_identity.principal_id
+$agentPrincipalId      # prints the GUID, for example 00000000-0000-0000-0000-000000000000
+```
+
+If `$agentPrincipalId` is empty, the agent isn't `active` yet - wait a minute and run `azd ai agent show` again. You can also read the same value in the Foundry portal: **Build** > **Agents** > `issue-triage-hosted` > **Hosted agent details** (or the agent YAML), under the agent (instance) identity. Keep this GUID in your private notes; you'll pass it to the role script next.
+
 > **SCREENSHOT PLACEHOLDER** - `docs/images/m07-azd-agent-show.png`
 > - **Screen**: terminal showing `azd ai agent show ... --output json` with `"status": "active"` and the container image, endpoints, and `instance_identity.principal_id` visible.
 > - **Navigation**: run step 7.6 after a successful deploy.
 > - **Redact**: the project endpoint, resource IDs, and the `principal_id` GUID. See [docs/images/README.md](../images/README.md).
 
 ### 7.7 Grant the agent identity access to the knowledge base (Module 5 only)
-From the repository root, use the `instance_identity.principal_id` from step 7.6:
+From the repository root, use the agent principal ID you captured in step 7.6 (either the `$agentPrincipalId` variable, or paste the GUID):
 
 ```powershell
-./deployment/assign-hosted-agent-roles.ps1 -AgentPrincipalId <principal-id> `
+./deployment/assign-hosted-agent-roles.ps1 -AgentPrincipalId $agentPrincipalId `
     -SearchServiceName <search-service> -ResourceGroup <lab-resource-group>
 ```
 This assigns **Search Index Data Reader** and **Reader** on the lab search service only. Both are required: without **Reader**, the agent fails with `Operation returned an invalid status 'Forbidden'` because the knowledge base provider can't read the knowledge base definition. Role assignments can take a few minutes.
