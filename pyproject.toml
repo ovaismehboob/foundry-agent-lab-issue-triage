@@ -3,6 +3,17 @@ name = "foundry-issue-triage-lab"
 version = "1.0.0"
 description = "Hands-on Microsoft Foundry agent lab: Contoso Telecom Issue Triage Assistant"
 requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Ovais Mehboob", email = "ovaismehboob@hotmail.com" },
+]
+maintainers = [
+    { name = "Ovais Mehboob", email = "ovaismehboob@hotmail.com" },
+]
+
+[project.urls]
+Homepage = "https://github.com/ovaismehboob/foundry-agent-lab-issue-triage"
+Repository = "https://github.com/ovaismehboob/foundry-agent-lab-issue-triage"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

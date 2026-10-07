@@ -48,7 +48,7 @@ python -m triage_desk triage ISS-1009
 ```text
 README.md                 this file
 SECURITY.md               security notes for the lab
-LICENSE                   license placeholder
+LICENSE                   MIT license
 requirements-dev.txt      app requirements + pytest
 pyproject.toml            pytest configuration
 app/                      the application (Modules 2-7); also the container build context
@@ -83,3 +83,13 @@ The lab creates billable Azure resources (model usage, Azure AI Search, Containe
 - [Troubleshooting](docs/troubleshooting.md)
 - [Cost and cleanup](docs/cost-and-cleanup.md)
 - [Evaluation dataset schema](evaluation/README.md)
+
+## Authors and maintainers
+- **Ovais Mehboob** ([@ovaismehboob](https://github.com/ovaismehboob)) - author and maintainer
+
+Contributions are welcome. Please open an issue or pull request on [GitHub](https://github.com/ovaismehboob/foundry-agent-lab-issue-triage).
+
+## License
+This project is licensed under the [MIT License](LICENSE) - Copyright (c) 2026 Ovais Mehboob.
+
+Third-party material referenced (not copied) by the guides keeps its own license (for example, Microsoft Learning screenshots under MIT and Microsoft Learn content under the Microsoft Learn terms of use). All sample data is synthetic.
