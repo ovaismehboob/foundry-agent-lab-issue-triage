@@ -24,9 +24,9 @@ flowchart LR
         Embed["Embedding deployment"]
         Prompt["Prompt Agent<br/>issue-triage-agent"]
         Hosted["Hosted agent<br/>issue-triage-hosted"]
-        Guard["Guardrail gr-issue-triage<br/>(preview for agents)"]
+        Guard["Guardrail grissuetriage<br/>(preview for agents)"]
         Evals["Portal evaluations"]
-        KB["Foundry IQ knowledge base kb-triage"]
+        KB["Foundry IQ knowledge base kbtriage"]
     end
 
     subgraph Azure["Lab resource group"]
@@ -78,7 +78,7 @@ flowchart LR
 | Local container | Required | Module 6 | Same agent packaged for hosting |
 | Azure Container Registry | Required | Module 7 | Stores the agent image (created or selected by `azd`) |
 | Hosted agent `issue-triage-hosted` | Required | Module 7 | Same agent running in Foundry Agent Service |
-| Guardrail `gr-issue-triage` | Required | Module 8 | Content safety and prompt-attack controls (agent guardrails preview) |
+| Guardrail `grissuetriage` | Required | Module 8 | Content safety and prompt-attack controls (agent guardrails preview) |
 | Application Insights + Log Analytics | Required | Module 8 | Traces, monitoring dashboard, hosted agent telemetry (tracing preview) |
 | Evaluation dataset + portal evaluation + judge model | Required | Module 9 | Quality and safety evaluation |
 | Microsoft Defender integration | **Optional** | Module 8 (discussion) | AI threat protection; separate enablement and licensing |

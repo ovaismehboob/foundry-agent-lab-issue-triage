@@ -3,6 +3,8 @@
 ## Objective
 Package the same triage agent as a container image, run it locally, pass configuration safely, test it over the Responses protocol, read its logs, and clean up.
 
+> **This module is optional — skip it if local Docker builds are blocked.** Building the image locally (step 6.2) downloads from third-party sites: the base image from **Docker Hub** and Python packages from **PyPI** (`pypi.org`). If your network blocks these (corporate proxy, TLS inspection, or an air-gapped lab), you can't build locally, and there is no portal/offline workaround for the download itself. **You do not need a local image to continue** — in [Module 7](module-07-hosted-agent.md), `azd deploy` builds the *same* Dockerfile remotely in Azure Container Registry, so the deployment path does not depend on this module. If downloads are blocked, read through this module for understanding and go straight to Module 7. The only parts you lose by skipping are the local run (6.1), the local container test (6.4), and reading local `docker logs` (6.5).
+
 ## Prerequisites
 - Module 3 completed (Module 5 optional). Check with `python scripts/lab_state.py status`: at least 3.1b, 3.2a, 3.2b, and 3.3 must be enabled, because the container serves the code-defined agent.
 - Docker Desktop (or another Docker engine) running with Linux containers.

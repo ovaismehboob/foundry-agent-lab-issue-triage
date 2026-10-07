@@ -25,7 +25,7 @@
 
 .EXAMPLE
   ./deployment/assign-hosted-agent-roles.ps1 -AgentPrincipalId 00000000-0000-0000-0000-000000000000 `
-      -SearchServiceName srch-triage-lab-01 -ResourceGroup rg-foundry-agent-lab
+      -SearchServiceName srchtriagelab01 -ResourceGroup rg-foundry-agent-lab
 #>
 [CmdletBinding(SupportsShouldProcess = $true)]
 param(

@@ -42,11 +42,11 @@ The [knowledge](../../knowledge) folder contains seven short Markdown documents 
 
 ### 4.1 Create the Azure AI Search service
 1. In the [Azure portal](https://portal.azure.com), create an **Azure AI Search** service in your lab resource group, in the same region as your Foundry project:
-   - **Service name**: for example `srch-triage-lab-<initials>`
+   - **Service name**: for example `srchtriagelab<initials>` (lowercase letters and numbers; no hyphens)
    - **Pricing tier**: **Free** if available, otherwise **Basic**. A subscription can have only one Free search service; if one already exists, use Basic (billed while it exists).
 2. Under **Settings** > **Identity**, turn **System assigned** managed identity **On**.
 3. Under **Settings** > **Keys**, set **API access control** to **Both** (or **Role-based access control**).
-4. Copy the **Url** from the **Overview** page (for example `https://srch-triage-lab-ab.search.windows.net`) into your private notes.
+4. Copy the **Url** from the **Overview** page (for example `https://srchtriagelabab.search.windows.net`) into your private notes.
 
 > Some regions show "high demand" and don't accept new search services. The [search region list](https://learn.microsoft.com/azure/search/search-region-support) marks them; your instructor picks a region that works.
 
@@ -70,7 +70,7 @@ Your instructor assigns these, scoped to the lab resources only (see [instructor
 
 ### 4.4 Create the knowledge base
 1. Select **Create a knowledge base**. On **Create a new knowledge base**, set:
-   - **Name**: `kb-triage`
+   - **Name**: `kbtriage`
    - **Description**: `Contoso Telecom triage knowledge (synthetic)`
    - **Chat completions model**: your chat deployment (for example `gpt-5-mini`)
    - **Retrieval reasoning effort**: **Minimal** (default)
@@ -78,28 +78,30 @@ Your instructor assigns these, scoped to the lab resources only (see [instructor
 2. Under **Knowledge sources (Foundry IQ)**, add the documents with **one** of the options below.
 
 #### Option A - Azure Blob Storage (official lab path)
-1. In the Azure portal, create a storage account in the lab resource group (**Standard**, **LRS**, same region), create a container `triage-knowledge`, and upload the seven files. Keep anonymous access disabled.
-2. Back in the knowledge base, select **Add sources** > **Azure Blob Storage**, and set the name `ks-triage-knowledge`, a description, the storage account, the container `triage-knowledge`, the authentication type your instructor specifies (managed identity recommended), **Content extraction mode** `minimal`, and your embedding and chat models.
+1. In the Azure portal, create a storage account in the lab resource group (**Standard**, **LRS**, same region), create a container `triageknowledge`, and upload the seven files. Keep anonymous access disabled.
+
+   > **Naming:** storage account names must be **3-24 lowercase letters and numbers only** — no hyphens (for example `sttriagelab<initials>`). Blob container names allow hyphens, but this lab keeps them hyphen-free for consistency.
+2. Back in the knowledge base, select **Add sources** > **Azure Blob Storage**, and set the name `kstriageknowledge`, a description, the storage account, the container `triageknowledge`, the authentication type your instructor specifies (managed identity recommended), **Content extraction mode** `minimal`, and your embedding and chat models.
 
 > **Tenant policy note:** many enterprise tenants enforce **Public network access: Disabled** and **shared key access disabled** on storage accounts. Then neither you nor Azure AI Search can reach the account without private networking, and option A fails. In the validation tenant for this lab, the policy reverted any change, so option B was used.
 
 #### Option B - File upload (preview, no storage account) - validated
 1. Select **Upload files** and choose the seven files from the `knowledge` folder.
-2. The **Create a knowledge source** dialog shows **File (Preview)**: "Upload files directly — no storage account or connection string needed. Service-managed processing." Set **Name** `ks-triage-knowledge`, a **Description**, and the **Embedding model**, then select **Create**.
+2. The **Create a knowledge source** dialog shows **File (Preview)**: "Upload files directly — no storage account or connection string needed. Service-managed processing." Set **Name** `kstriageknowledge`, a **Description**, and the **Embedding model**, then select **Create**.
 
-![Create a knowledge source dialog of type File (Preview) with name ks-triage-knowledge, a description, the text-embedding-3-small embedding model, a managed identity notice, and the list of files to upload.](../images/m04-file-knowledge-source.png)
+![Create a knowledge source dialog of type File (Preview) with name kstriageknowledge, a description, the text-embedding-3-small embedding model, a managed identity notice, and the list of files to upload.](../images/m04-file-knowledge-source.png)
 
 *Figure 4.1 - File (Preview) knowledge source. Observe the note that files go directly to an Azure AI Search index, the embedding model, and the files to upload. Captured from the lab tenant on 5 October 2026.*
 
 3. Select **Save knowledge base**. Wait until the knowledge source shows **7 files** and status **Active**.
 
-![Knowledge base kb-triage with gpt-5-mini as chat completions model, Minimal retrieval reasoning effort, Extractive data output mode, and the ks-triage-knowledge File source with 7 files and status Active.](../images/m04-knowledge-base.png)
+![Knowledge base kbtriage with gpt-5-mini as chat completions model, Minimal retrieval reasoning effort, Extractive data output mode, and the kstriageknowledge File source with 7 files and status Active.](../images/m04-knowledge-base.png)
 
 *Figure 4.2 - The saved knowledge base. Observe **Use in an agent**, the model and retrieval settings, and the knowledge source status. Captured from the lab tenant.*
 
 ### 4.5 Connect the knowledge base to the Prompt Agent
 1. Open `issue-triage-agent` (**Build** > **Agents**). In the **Knowledge** section ("Add knowledge bases for grounding"), select **Add** > **Connect to Foundry IQ**.
-2. In **Connect to Foundry IQ**, select the **Connection** (your search service) and the **Knowledge base** `kb-triage`, then select **Connect**. The portal adds an MCP tool for the knowledge base and a project connection named `kb-kb-triage-...`.
+2. In **Connect to Foundry IQ**, select the **Connection** (your search service) and the **Knowledge base** `kbtriage`, then select **Connect**. The portal adds an MCP tool for the knowledge base and a project connection named `kb-kbtriage-...`.
 3. Append the contents of [app/prompts/knowledge_instructions.md](../../app/prompts/knowledge_instructions.md) to the end of the agent's **Instructions**. The first rule, "you must ALWAYS call [the knowledge base tool]", matters: in validation, the agent didn't search the knowledge base until the instructions said so.
 4. Select **Save**. Record the new **version** number. You use it in Module 9.
 
@@ -118,11 +120,11 @@ Compare with the ungrounded answers from Module 1 (use the **Version** selector 
 
 ### 4.7 Review citations and tool calls
 - Grounded answers show **numbered citations** (for example `1`, `2`). Each links to a document in the search index created for the knowledge source.
-- The response toolbar lists the tool calls, for example `mcp_list_tools` and `kb-kb-triage-...`, which confirms the knowledge base was searched.
+- The response toolbar lists the tool calls, for example `mcp_list_tools` and `kb-kbtriage-...`, which confirms the knowledge base was searched.
 
-![Agent playground with kb-triage under Knowledge, and a grounded response showing numbered citations and the kb-kb-triage tool in the response toolbar.](../images/m04-grounded-response.png)
+![Agent playground with kbtriage under Knowledge, and a grounded response showing numbered citations and the kb-kbtriage tool in the response toolbar.](../images/m04-grounded-response.png)
 
-*Figure 4.3 - Grounded answer for ISS-1001. Observe **kb-triage** under **Knowledge**, the citation links, and the knowledge base tool in the toolbar. Captured from the lab tenant.*
+*Figure 4.3 - Grounded answer for ISS-1001. Observe **kbtriage** under **Knowledge**, the citation links, and the knowledge base tool in the toolbar. Captured from the lab tenant.*
 
 ## Verification checkpoint
 - [ ] The knowledge source status is **Active**.

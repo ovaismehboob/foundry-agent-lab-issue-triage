@@ -56,6 +56,8 @@ Pinned in [app/requirements.txt](../../app/requirements.txt): `agent-framework-c
    You see `LAB STEP 3.1b is not enabled yet.`
 4. Open `app/triage_desk/agent_factory.py` and uncomment **LAB STEP 3.1a** (in `build_prompt_agent`) and **LAB STEP 3.1b** (in `build_triage_agent`). Save.
 
+   > **How to uncomment:** select only the commented code lines **between** the two `===== LAB STEP ... =====` marker lines (don't select the markers), then press **Ctrl+/** (Windows/Linux) or **Cmd+/** (macOS) to toggle the comments off. Save the file. The same shortcut applies to every "uncomment" step in this lab.
+
 ### Prepared code
 ```python
 # LAB STEP 3.1a - use the Prompt Agent defined in the portal

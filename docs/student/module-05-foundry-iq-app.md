@@ -1,7 +1,7 @@
 # Module 5 - Use Foundry IQ from the Python application
 
 ## Objective
-Connect the code-defined agent to the `kb-triage` knowledge base you built in Module 4, so the app can link issues to known incidents and documented solutions, and show the source references the service returns.
+Connect the code-defined agent to the `kbtriage` knowledge base you built in Module 4, so the app can link issues to known incidents and documented solutions, and show the source references the service returns.
 
 ## Prerequisites
 - Modules 3 and 4 completed (`python scripts/lab_state.py status` shows 3.1a to 3.5b enabled).
@@ -24,7 +24,7 @@ Search service and knowledge base from Module 4 (queried with your Microsoft Ent
 
    ```text
    AZURE_SEARCH_ENDPOINT=https://<your-search-service>.search.windows.net
-   AZURE_SEARCH_KNOWLEDGE_BASE_NAME=kb-triage
+   AZURE_SEARCH_KNOWLEDGE_BASE_NAME=kbtriage
    ```
 2. Check the configuration: `python -m triage_desk doctor`. Both Module 5 lines show `OK`.
 3. Run the agent **before** enabling the step and note that there's no known issue:
@@ -33,6 +33,8 @@ Search service and knowledge base from Module 4 (queried with your Microsoft Ent
    python -m triage_desk triage ISS-1001 --engine agent
    ```
 4. In `app/triage_desk/agent_factory.py`, uncomment **LAB STEP 5.1**. Save.
+
+   > **Reminder:** select the commented lines **between** the `===== LAB STEP 5.1 ... =====` markers (not the markers), then press **Ctrl+/** (Windows/Linux) or **Cmd+/** (macOS) to uncomment, and save.
 5. Run these tests:
 
    ```powershell

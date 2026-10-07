@@ -10,7 +10,7 @@ Deploy the same Agent Framework triage agent to **Foundry Agent Service** as a *
 - Container images must be **linux/amd64**; the container serves port **8088**; the platform provides `/readiness` routing, a dedicated Microsoft Entra **agent identity**, and a dedicated endpoint.
 
 ## Prerequisites
-- Modules 3 and 6 completed (Module 5 optional).
+- Module 3 completed (Module 5 optional). **Module 6 is optional** — `azd` builds the image remotely in Azure Container Registry, so you don't need a locally built image.
 - **Foundry Project Manager** role at project scope (needed to deploy hosted agents). See [prerequisites.md](../prerequisites.md#roles).
 - Azure Developer CLI `azd` 1.27.1 or later with the Foundry extensions (install the [Foundry Dev Pack](https://learn.microsoft.com/azure/foundry/how-to/develop/install-cli-sdk), or run `azd extension install azure.ai.agents`). Validated with `azd` 1.34.1 and `azure.ai.agents` 1.0.0-beta.16.
 - Docker isn't required for the deployment itself: `azd` builds the image remotely in Azure Container Registry.
@@ -23,7 +23,7 @@ Deploy the same Agent Framework triage agent to **Foundry Agent Service** as a *
 - **Deploy modes**: `container` (Dockerfile, used here) or `code` (ZIP upload and remote build).
 
 ## Starting state
-`python scripts/lab_state.py status` shows 3.1a to 3.5b enabled (and 5.1 if you completed Module 5). The container from Module 6 works.
+`python scripts/lab_state.py status` shows 3.1a to 3.5b enabled (and 5.1 if you completed Module 5). If you did Module 6, the local container works; if you skipped it, that's fine — `azd` builds the image in Azure.
 
 ## Resources used
 Foundry project (existing), model deployment, Azure Container Registry (created or selected by `azd`), hosted agent compute (billed while sessions are active), optional search service.
@@ -37,6 +37,34 @@ azd extension list
 azd auth login
 ```
 `azure.ai.agents` must be installed and compatible with your `azd` version. If `azd` reports an incompatible extension, update `azd` first.
+
+**What you should see** (captured 7 October 2026 with `azd` 1.34.1):
+
+```text
+PS> azd version
+azd version 1.34.1 (commit ...) (stable)
+
+PS> azd extension list
+ID                   NAME                         STATUS         INSTALLED       LATEST
+───────────────────────────────────────────────────────────────────────────────────────
+azure.ai.agents      Foundry agents (Beta)        Up to date     1.0.0-beta.16   1.0.0-beta.16
+microsoft.foundry    Microsoft Foundry (Beta)     Up to date     1.0.0-beta.2    1.0.0-beta.2
+...
+```
+
+> **If step 7.1 fails in the terminal (common):** the Foundry extension auto-updated to a build that your `azd` version doesn't support, so `azd extension list` shows `azure.ai.agents` with **STATUS = Incompatible** and later `azd ai agent …` commands may fail or print a warning. (A mismatch often still runs with a warning, but if a command errors out, this is the usual cause.) Fix it by matching the versions:
+>
+> ```powershell
+> azd version                                     # note your azd version
+> azd extension list                              # look for "Incompatible" in the STATUS column
+> # Option A (recommended): update azd, then the extension
+> powershell -ex AllSigned -c "Invoke-RestMethod 'https://aka.ms/install-azd.ps1' | Invoke-Expression"
+> azd extension update azure.ai.agents
+> # Option B: pin the extension build this lab was validated with
+> azd extension install azure.ai.agents --version 1.0.0-beta.16
+> ```
+>
+> Re-run `azd extension list` and confirm `azure.ai.agents` shows **Up to date** (or at least not **Incompatible**) before continuing.
 
 ### 7.2 Initialize the azd project around the existing code
 From the **repository root**:
@@ -70,7 +98,7 @@ The command generates `azure.yaml` at the repository root, `app/.agentignore`, a
 
    ```powershell
    azd env set AZURE_SEARCH_ENDPOINT https://<search-service>.search.windows.net -e triage-lab   # Module 5 only
-   azd env set AZURE_SEARCH_KNOWLEDGE_BASE_NAME kb-triage -e triage-lab                           # Module 5 only
+   azd env set AZURE_SEARCH_KNOWLEDGE_BASE_NAME kbtriage -e triage-lab                           # Module 5 only
    ```
 
 ### 7.4 Provision (and optionally test locally with azd)
@@ -85,11 +113,44 @@ azd deploy -e triage-lab
 ```
 `azd` packages the `app` folder, builds the image in Azure Container Registry, creates a hosted agent version, and polls until it's active (validated: about 2.5 minutes). The output ends with `SUCCESS` and the next steps (`azd ai agent show`, `azd ai agent invoke`).
 
+**What you should see** (abbreviated):
+
+```text
+Packaging services (azd deploy)
+  (✓) Done: Packaging service issue-triage-hosted
+Deploying services (azd deploy)
+  (✓) Done: Building image in Azure Container Registry
+  (✓) Done: Deploying hosted agent issue-triage-hosted (version 1)
+  Waiting for agent version to become active... active
+
+SUCCESS: Your application was deployed to Azure in 2 minutes 30 seconds.
+
+Next steps:
+  - Show status:  azd ai agent show issue-triage-hosted -e triage-lab
+  - Invoke agent: azd ai agent invoke issue-triage-hosted "Hello" -e triage-lab
+```
+
+![Placeholder - terminal screenshot of a successful `azd deploy -e triage-lab`: the Packaging and Deploying steps with green checks, the `SUCCESS` line, and the two "Next steps" commands. Redact subscription/tenant IDs, resource IDs, and your user name. See docs/images/README.md.](../images/m07-azd-deploy-success.png)
+
 ### 7.6 Verify deployment status
 ```powershell
 azd ai agent show issue-triage-hosted -e triage-lab --output json
 ```
 Check `"status": "active"`, the `container_configuration.image`, the `environment_variables`, `agent_endpoints.responses`, and `instance_identity.principal_id` (the agent identity). In the Foundry portal, `issue-triage-hosted` appears under **Build** > **Agents** with type **Hosted**.
+
+**What you should see** (trimmed JSON; your IDs and endpoints differ):
+
+```json
+{
+  "name": "issue-triage-hosted",
+  "status": "active",
+  "container_configuration": { "image": "<registry>.azurecr.io/issue-triage-hosted:1" },
+  "agent_endpoints": { "responses": "https://<project-endpoint>/.../responses" },
+  "instance_identity": { "principal_id": "00000000-0000-0000-0000-000000000000" }
+}
+```
+
+![Placeholder - terminal screenshot of `azd ai agent show ... --output json` with "status": "active" and the container image, endpoints, and instance_identity.principal_id visible. Redact the project endpoint, resource IDs, and principal_id GUID. See docs/images/README.md.](../images/m07-azd-agent-show.png)
 
 ### 7.7 Grant the agent identity access to the knowledge base (Module 5 only)
 From the repository root, use the `instance_identity.principal_id` from step 7.6:
@@ -107,6 +168,21 @@ azd ai agent invoke issue-triage-hosted "Why did you choose that priority?" -e t
 azd ai agent invoke issue-triage-hosted "Triage issue ISS-1001" -e triage-lab --new-session  # KI-2041 if Module 5 is enabled
 ```
 Validated results: ISS-1014 is `ROAMING` / `P1` / Roaming Desk (1 hour); the follow-up explains the P1 using the earlier turn; ISS-1001 shows `Known issue: KI-2041`. The output also shows the conversation, session, and trace IDs. You can also chat with `issue-triage-hosted` in the portal playground.
+
+**What you should see** (for `Triage issue ISS-1014`; abbreviated):
+
+```text
+Invoking agent issue-triage-hosted...
+status: completed   conversation: conv_...   session: sess_...   trace: ...
+
+Category: ROAMING
+Priority: P1 - critical
+Routed team: Roaming Desk, first-response SLA 1 hour
+Known issue: None
+Safety flags: none
+```
+
+![Placeholder - terminal screenshot of `azd ai agent invoke issue-triage-hosted "Triage issue ISS-1014"`: the status line with conversation/session/trace IDs and the triage card (Category ROAMING, Priority P1, Roaming Desk). Redact the session/trace IDs. See docs/images/README.md.](../images/m07-azd-agent-invoke.png)
 
 ### 7.9 Review logs and diagnostics
 ```powershell
@@ -145,7 +221,7 @@ azd ai agent delete issue-triage-hosted --force -e triage-lab
 ## Common errors and recovery
 | Symptom | Likely cause | Recovery |
 |---|---|---|
-| `azure.ai.agents` extension incompatible | Old `azd` | Update `azd`, then `azd extension upgrade --all`. |
+| `azure.ai.agents` extension incompatible (`STATUS = Incompatible`), `azd ai agent …` fails in the terminal | `azd` and the Foundry extension versions don't match (the extension auto-updated) | Update `azd`, then `azd extension update --all` (or pin with `azd extension install azure.ai.agents --version 1.0.0-beta.16`). See the detailed note in step 7.1. |
 | Authorization error during deploy | Missing **Foundry Project Manager** | Ask the instructor; wait a few minutes after assignment. |
 | Image pull failure | Project managed identity lacks registry access | Instructor assigns **Container Registry Repository Reader** on the registry. |
 | Agent version fails to start | Module 3 steps not enabled in the image, or a missing environment variable | `azd ai agent monitor`; `python scripts/lab_state.py upto 3.5`; check `env:` in `azure.yaml`; `azd deploy` again. |

@@ -25,7 +25,7 @@ Foundry resource and project, one chat model deployment (billable per token).
 1. Open [Microsoft Foundry](https://ai.azure.com) and sign in.
 2. In the toolbar at the top of the page, make sure **New Foundry** is turned on. This lab uses the current (new) Foundry experience only. Instructions and SDK samples for **Foundry (classic)** don't apply.
 3. If you're prompted, create a project. Expand **Advanced options** and set:
-   - **Foundry resource**: a new resource name, for example `aif-triage-lab-<initials>`
+   - **Foundry resource**: a new resource name, for example `aiftriagelab<initials>` (keep it to letters and numbers; several Azure resource types reject hyphens, so this lab avoids them in resource names)
    - **Subscription**: your lab subscription
    - **Resource group**: your dedicated lab resource group, for example `rg-foundry-agent-lab`
    - **Region**: the region your instructor gave you (see [prerequisites.md](../prerequisites.md#region))

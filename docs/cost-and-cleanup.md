@@ -44,7 +44,7 @@ Do these in order at the end of the workshop.
    ```powershell
    python scripts/delete_lab_agents.py
    ```
-4. **Uploaded knowledge files** (if you keep the resource group): delete the `ks-triage-knowledge` knowledge source (**Build** > **Knowledge** > `kb-triage` > options > **Delete permanently**), or for option A delete the `triage-knowledge` blob container.
+4. **Uploaded knowledge files** (if you keep the resource group): delete the `kstriageknowledge` knowledge source (**Build** > **Knowledge** > `kbtriage` > options > **Delete permanently**), or for option A delete the `triageknowledge` blob container.
 5. **The azd-created resource group** (if `azd` created one, for example `rg-triage-lab-foundry` with the Premium container registry)
    ```powershell
    ./scripts/cleanup-lab.ps1 -ResourceGroup rg-<azd-environment>-foundry

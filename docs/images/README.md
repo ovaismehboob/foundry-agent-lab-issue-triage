@@ -20,12 +20,12 @@ Store lab screenshots in this folder with the naming convention `m<module>-<shor
 
 ## Screenshots captured from the lab tenant (5 October 2026)
 
-Captured from a dedicated lab project (`proj-triage-lab`) in the Microsoft Non-Production tenant. They show only lab resource names; no subscription or tenant IDs, user names, keys, or account menus are visible. They were checked before they were added.
+Captured from a dedicated lab project (`projtriagelab`) in the Microsoft Non-Production tenant. They show only lab resource names; no subscription or tenant IDs, user names, keys, or account menus are visible. They were checked before they were added.
 
 | File | Figure | Screen |
 |---|---|---|
 | `m04-file-knowledge-source.png` | 4.1 | Create a knowledge source - File (Preview) |
-| `m04-knowledge-base.png` | 4.2 | Saved knowledge base `kb-triage` |
+| `m04-knowledge-base.png` | 4.2 | Saved knowledge base `kbtriage` |
 | `m04-grounded-response.png` | 4.3 | Grounded answer for ISS-1001 with citations |
 | `m08-guardrail-controls.png` | 8.1 | Guardrail wizard, step 1: Add controls |
 | `m08-trace-detail.png` | 8.2 | Trace detail with the knowledge base tool span |
@@ -34,6 +34,9 @@ Captured from a dedicated lab project (`proj-triage-lab`) in the Microsoft Non-P
 
 | File | Module | Screen | Navigation |
 |---|---|---|---|
+| `m07-azd-deploy-success.png` | 7 | Terminal: successful `azd deploy` | Run `azd deploy -e triage-lab` (step 7.5); capture the `SUCCESS` line and next steps |
+| `m07-azd-agent-show.png` | 7 | Terminal: `azd ai agent show --output json` with `"status": "active"` | Run step 7.6; capture the trimmed JSON |
+| `m07-azd-agent-invoke.png` | 7 | Terminal: `azd ai agent invoke` triage card for ISS-1014 | Run step 7.8; capture the status line and triage card |
 | `m09-evaluation-results.png` | 9 | Evaluation run results | Build > Agents > issue-triage-agent > Evaluation > select the run |
 
 The placeholder in the student guide lists what must be visible, what to redact, the caption, and the alt text. When you add the screenshot, replace the placeholder block with the image, caption, and "what to observe" text.

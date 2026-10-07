@@ -39,7 +39,7 @@ Foundry project, guardrails, Application Insights and its Log Analytics workspac
    | Sensitive data leakage | PII (Preview) | Off | **Turn on**, then select data types in its list, for example **Credit card protection** and **Email protection**. At least one type is required. |
    | Task drift | Task adherence (Preview) (Tool call); Groundedness (Preview) (Output) | Off | **Turn on Task adherence**. |
 3. Select **Next**. In **Step 2: Select agents and models**, select the checkboxes for `issue-triage-agent` (and `issue-triage-hosted` if it exists). Leave models unselected.
-4. Select **Next**. In **Step 3: Review**, enter a **Guardrail name** such as `gr-issue-triage` (if you leave it empty, the portal assigns a name like `Guardrails835`) and select **Create**.
+4. Select **Next**. In **Step 3: Review**, enter a **Guardrail name** such as `grissuetriage` (if you leave it empty, the portal assigns a name like `Guardrails835`) and select **Create**.
 5. The guardrail appears in the list with type **Agent** and your agents under **Applied to**. Assigning a guardrail creates a **new agent version**; check the **Version** selector.
 
 ![Guardrail wizard step 1 showing protected materials controls, PII (Preview) enabled with Credit card protection selected, and Task adherence (Preview) enabled.](../images/m08-guardrail-controls.png)
@@ -113,7 +113,7 @@ Classification models decide what is flagged, so results can vary. A guardrail r
 Microsoft Defender and Microsoft Purview aren't automatically included. Their setup, permissions, and licensing are documented separately (see References) and change over time; review them with your security team.
 
 ## Expected result
-- `gr-issue-triage` is assigned to the agent(s).
+- `grissuetriage` is assigned to the agent(s).
 - At least one test is blocked and the legitimate tickets are allowed.
 - Traces and Monitor data appear for the agent.
 
