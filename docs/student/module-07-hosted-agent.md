@@ -130,7 +130,10 @@ Next steps:
   - Invoke agent: azd ai agent invoke issue-triage-hosted "Hello" -e triage-lab
 ```
 
-![Placeholder - terminal screenshot of a successful `azd deploy -e triage-lab`: the Packaging and Deploying steps with green checks, the `SUCCESS` line, and the two "Next steps" commands. Redact subscription/tenant IDs, resource IDs, and your user name. See docs/images/README.md.](../images/m07-azd-deploy-success.png)
+> **SCREENSHOT PLACEHOLDER** - `docs/images/m07-azd-deploy-success.png`
+> - **Screen**: terminal showing a successful `azd deploy -e triage-lab` - the Packaging and Deploying steps with green checks, the `SUCCESS` line, and the two "Next steps" commands.
+> - **Navigation**: run `azd deploy -e triage-lab` from the repository root (step 7.5).
+> - **Redact**: subscription/tenant IDs, resource IDs, and your user name. See [docs/images/README.md](../images/README.md).
 
 ### 7.6 Verify deployment status
 ```powershell
@@ -150,7 +153,10 @@ Check `"status": "active"`, the `container_configuration.image`, the `environmen
 }
 ```
 
-![Placeholder - terminal screenshot of `azd ai agent show ... --output json` with "status": "active" and the container image, endpoints, and instance_identity.principal_id visible. Redact the project endpoint, resource IDs, and principal_id GUID. See docs/images/README.md.](../images/m07-azd-agent-show.png)
+> **SCREENSHOT PLACEHOLDER** - `docs/images/m07-azd-agent-show.png`
+> - **Screen**: terminal showing `azd ai agent show ... --output json` with `"status": "active"` and the container image, endpoints, and `instance_identity.principal_id` visible.
+> - **Navigation**: run step 7.6 after a successful deploy.
+> - **Redact**: the project endpoint, resource IDs, and the `principal_id` GUID. See [docs/images/README.md](../images/README.md).
 
 ### 7.7 Grant the agent identity access to the knowledge base (Module 5 only)
 From the repository root, use the `instance_identity.principal_id` from step 7.6:
@@ -182,7 +188,10 @@ Known issue: None
 Safety flags: none
 ```
 
-![Placeholder - terminal screenshot of `azd ai agent invoke issue-triage-hosted "Triage issue ISS-1014"`: the status line with conversation/session/trace IDs and the triage card (Category ROAMING, Priority P1, Roaming Desk). Redact the session/trace IDs. See docs/images/README.md.](../images/m07-azd-agent-invoke.png)
+> **SCREENSHOT PLACEHOLDER** - `docs/images/m07-azd-agent-invoke.png`
+> - **Screen**: terminal showing `azd ai agent invoke issue-triage-hosted "Triage issue ISS-1014"` - the status line with conversation/session/trace IDs and the triage card (Category ROAMING, Priority P1, Roaming Desk).
+> - **Navigation**: run step 7.8 after a successful deploy.
+> - **Redact**: the session/trace IDs. See [docs/images/README.md](../images/README.md).
 
 ### 7.9 Review logs and diagnostics
 ```powershell
